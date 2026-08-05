@@ -28,15 +28,15 @@ ensure_pkgs <- function(pkgs, repos = "https://cloud.r-project.org") {
 ensure_pkgs(c("dplyr", "fst", "jsonlite"))
 
 in_fst   <- file.path("data", "statcast_2021_2025_mod.fst")
-html_in  <- "situational_pitch_efficacy.html"          # the delivered dashboard
-html_out <- "Situational Pitch Efficacy.html"          # self-contained result
+html_in  <- "situational_pitch_efficacy.html"        
+html_out <- "Situational Pitch Efficacy.html"          
 js_out   <- "pitch_data.js"
 if (!file.exists(in_fst)) stop("Run pitch_effectiveness.R first; missing: ", in_fst)
 
 # ---- encoding constants (mirrored in the dashboard) -------------------------
 VELO_STEP <- 0.5
 SPIN_FLOOR <- 0;  SPIN_STEP <- 25
-BREAK_FLOOR <- -30; BREAK_STEP <- 0.5          # inches
+BREAK_FLOOR <- -30; BREAK_STEP <- 0.5       
 XW_FLOOR <- 0.100;  XW_STEP <- 0.050
 OPS_FLOOR <- 0.300; OPS_STEP <- 0.075
 BAND_NA <- 15L
