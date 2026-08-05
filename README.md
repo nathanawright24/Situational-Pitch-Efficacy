@@ -6,6 +6,7 @@ It is designed to **inform** pitch-planning decisions, not to prescribe them.
 
 **Created by Nathaniel Wright.**
 
+DOWNLOAD LINK FOR FULL DASHBOARD: https://drive.google.com/file/d/1qkknrCUd0dpqno08XXCLts0D5U7nXReo/view?usp=sharing
 ---
 
 ## What it does
@@ -138,8 +139,7 @@ whole dataset it is a large file, which is expected.
 
 For hosting the dashboard for external viewers on the full dataset, the planned path is a
 server-side stack (partitioned Parquet queried by DuckDB behind a Dash/Streamlit app) so that
-viewers hit a URL rather than downloading the data. Publishing is handled through IMG Academy
-support.
+viewers hit a URL rather than downloading the data. Publishing date TBD
 
 ---
 
