@@ -819,7 +819,7 @@
         if(tspec){ctx.fillStyle=textOn(rate);ctx.font="600 "+tspec.fs+"px 'IBM Plex Mono'";
           ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(Math.round(rate*100),tspec.cx,tspec.cy);}}
       else if(n>0){ctx.fillStyle="rgba(128,128,128,.14)";ctx.fillRect(x,y,w,h);}}
-    const ofs=Math.round(S*0.055);  // outer-corner label size
+    const ofs=Math.max(8,Math.round(S*0.055));  // outer-corner label size
     fill(11,0,0,half,half,{cx:a*0.5,cy:a*0.5,fs:ofs});
     fill(12,half,0,half,half,{cx:S-a*0.5,cy:a*0.5,fs:ofs});
     fill(13,0,half,half,half,{cx:a*0.5,cy:S-a*0.5,fs:ofs});
@@ -827,7 +827,7 @@
     ctx.fillStyle=bg;ctx.fillRect(a,a,inner,inner);
     for(let r=0;r<3;r++)for(let c=0;c<3;c++){
       const cx=a+c*cell+cell/2, cy=a+r*cell+cell/2;
-      fill(r*3+c+1,a+c*cell,a+r*cell,cell,cell, cell>=40?{cx,cy,fs:Math.round(cell*0.28)}:null);}
+      fill(r*3+c+1,a+c*cell,a+r*cell,cell,cell, {cx,cy,fs:Math.max(8,Math.round(cell*0.30))});}
     ctx.strokeStyle=cssVar("--line")||"rgba(128,128,128,.2)";ctx.lineWidth=1;ctx.strokeRect(1,1,S-2,S-2);
     ctx.strokeStyle=state.theme==="dark"?"rgba(243,243,241,.55)":"rgba(20,20,25,.5)";ctx.lineWidth=1.5;ctx.strokeRect(a,a,inner,inner);
     ctx.strokeStyle=state.theme==="dark"?"rgba(243,243,241,.16)":"rgba(20,20,25,.14)";ctx.lineWidth=1;
