@@ -45,7 +45,7 @@ cat(sprintf("Loaded %d rows x %d cols from %s\n", nrow(raw), ncol(raw), in_fst))
 # 2a. success components (all NA-safe -> success is strictly 0/1, never NA)
 raw <- raw |>
   dplyr::mutate(
-    whiff        = as.integer(grepl("swinging_strike", description)),          # incl. swinging_strike_blocked
+    whiff        = as.integer(grepl("swinging_strike", description)),         
     called       = as.integer(!is.na(description) & description == "called_strike"),
     weak_contact = as.integer(!is.na(launch_speed_angle) & launch_speed_angle <= 3),
     success      = as.integer(whiff == 1L | called == 1L | weak_contact == 1L)
@@ -63,7 +63,7 @@ if (length(foul_idx)) {
               100 * ev_cov, length(foul_idx)))
 }
 RECLASSIFY_WEAK_FOULS <- FALSE
-foul_ev_cut <- 60   # mph; tune once coverage is known
+foul_ev_cut <- 60  
 if (RECLASSIFY_WEAK_FOULS) {
   weak_foul <- !is.na(raw$description) & raw$description == "foul" &
                !is.na(raw$launch_speed) & raw$launch_speed < foul_ev_cut
@@ -165,7 +165,7 @@ is_hbp  <- ev == "hit_by_pitch"
 is_sf   <- ev %in% c("sac_fly", "sac_fly_double_play")
 is_sh   <- ev %in% c("sac_bunt", "sac_bunt_double_play")
 is_ci   <- ev == "catcher_interf"
-is_ab   <- is_pa & !(is_bb | is_hbp | is_sf | is_sh | is_ci)   # at-bats
+is_ab   <- is_pa & !(is_bb | is_hbp | is_sf | is_sh | is_ci) 
 tb      <- as.integer(is_1b) + 2L*as.integer(is_2b) + 3L*as.integer(is_3b) + 4L*as.integer(is_hr)
 
 ops_tbl <- data.frame(
@@ -232,7 +232,7 @@ batter_cells <- raw |>
                    yvar = stats::var(delta_run_exp),   # NA when n == 1
                    .groups = "drop")
 
-# 7b. prior-group moments (two clean steps; no within-summarise cross-refs)
+# 7b. prior-group moments
 grp_keys <- c("pos_bucket", "stand", "p_throws", "count", "zone")
 
 #   Step 1: pure aggregates per group -> prior mean (mu), pooled within-batter
@@ -273,9 +273,9 @@ hitter_zone_table <- batter_cells |>
   dplyr::mutate(
     # a lone-observation cell (yvar NA) borrows the group's within variance
     sigma2_i   = dplyr::coalesce(yvar, sigma2),
-    se2        = sigma2_i / n,                 # sampling variance of this cell's mean
-    B          = se2 / (se2 + tau2),           # shrinkage weight toward the prior
-    rv_shrunk  = (1 - B) * ybar + B * mu       # EB estimate of the batter's run value in this cell
+    se2        = sigma2_i / n,               
+    B          = se2 / (se2 + tau2),          
+    rv_shrunk  = (1 - B) * ybar + B * mu      
   ) |>
   dplyr::select(batter, pos_bucket, stand, p_throws, count, zone,
                 n, rv_raw = ybar, rv_prior = mu, shrink_weight = B, rv_shrunk, n_batters_in_group = n_bat)
