@@ -23,6 +23,7 @@ cat("Library path :", paste(.libPaths(), collapse = " ; "), "\n\n")
 ensure_pkgs(c("dplyr", "lubridate", "fst", "data.table"))
 
 # ---- 1. Configuration -------------------------------------------------------
+# Loads data in chunks to avoid oversaturating server when pulling
 seasons     <- 2021:2025
 chunk_days  <- 4
 sleep_secs  <- 6
